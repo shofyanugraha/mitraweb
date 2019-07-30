@@ -1,0 +1,68 @@
+.Register {
+    margin: 20px auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 0 20px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.Register h3{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    
+}
+
+
+.Register .form-group {
+    margin-bottom: 1rem;
+}
+
+.Register label {
+    margin-bottom: .5rem;
+    display: block;
+}
+
+.Register .form-group .form-control{
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-size: 14px;
+    padding: 2%;
+    border: 1px solid #e5e5e5;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.Register button {
+    margin: 5px;
+    padding: 10px;
+    display: block;
+    font: inherit;
+    background:  #fa923f;
+    border: #fa923f;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.Register button:disabled {
+    background-color: #AC9980;
+    border: 1px solid #7E7365;
+    color: #ccc;
+    cursor: default;
+}
+
+.Register button:hover:disabled {
+    background-color: #AC9980;
+    color: #ccc;
+    cursor: not-allowed;
+}

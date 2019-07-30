@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-datepicker": "^2.8.0",
     "react-dom": "^16.8.6",
+    "react-inputs-validation": "^3.2.3",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {
