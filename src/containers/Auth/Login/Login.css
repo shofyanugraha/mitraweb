@@ -1,4 +1,4 @@
-.Register {
+.Login {
     margin: 20px auto;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
@@ -7,7 +7,7 @@
     max-width: 500px;
 }
 
-.Register h3{
+.Login h3{
     border-bottom: 1px solid #ccc;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
@@ -15,16 +15,16 @@
 }
 
 
-.Register .form-group {
+.Login .form-group {
     margin-bottom: 1rem;
 }
 
-.Register label {
+.Login label {
     margin-bottom: .5rem;
     display: block;
 }
 
-.Register .form-group .form-control{
+.Login .form-group .form-control{
     display: block;
     margin: 0;
     width: 100%;
@@ -41,7 +41,7 @@
     -moz-box-sizing: border-box;
 }
 
-.Register .btn {
+.Login .btn {
     padding: 10px 0;
     display: block;
     font: inherit;
@@ -54,14 +54,14 @@
     text-align: center;
 }
 
-.Register .btn:disabled {
+.Login .btn:disabled {
     background-color: #AC9980;
     border: 1px solid #7E7365;
     color: #ccc;
     cursor: default;
 }
 
-.Register .btn:hover:disabled {
+.Login .btn:hover:disabled {
     background-color: #AC9980;
     color: #ccc;
     cursor: not-allowed;

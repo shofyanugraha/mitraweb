@@ -1,6 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import { Textbox, Radiobox } from 'react-inputs-validation';
 import DatePicker from "react-datepicker";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+import Modal from './../../../UI/Modal/Modal';
+
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import "./DatePicker.css";
 
@@ -19,7 +24,9 @@ class Register extends Component{
         hasLastNameError: true,
         hasPhoneError: true,
         hasEmailError: true,
-        enableButton: false
+        enableButton: false,
+        processRegister: false,
+        responseData: null
     }
 
 
@@ -29,12 +36,70 @@ class Register extends Component{
             this.setState({enableButton: true});
         }
     }
+
+    postDataHandler = () => {
+        const data = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            date_of_birth: this.state.date_of_birth,
+            phone: this.state.phone,
+            sex: this.state.sex,
+        };
+        this.setState({processRegister:true, enableButton:false});
+        axios.post( 'https://mitraistest.herokuapp.com/register', data )
+            .then( response => {
+                this.setState({responseData: response.data});
+            } ).catch(error => {
+                this.setState({responseData: error.response.data});
+            });
+    }
     
     render () {
-        const sexString = this.state.sex === 100 ? 'male' : 'female'
+        const sexString = this.state.sex === 100 ? 'male' : 'female';
+        
+        let modalMessage = (
+            <div>Process Register</div>
+        );
+            if(this.state.responseData !== null) {
+                if(!this.state.responseData.meta.status){
+                    const errorData = {
+                        ...this.state.responseData.meta.error
+                    };
+                    const dataError = Object.keys(this.state.responseData.meta.error).map((error, key)=>{
+                        return <li key={error + key}>{errorData[error]}</li>;
+                    });
+                    modalMessage = (
+                        <Fragment>
+                            <h4 style={{
+                                textAlign: 'center',
+                                color: 'red'
+                            }}>Oops Sorry</h4>
+                            <ul>
+                                { dataError }
+                            </ul>
+                        </Fragment>
+                    );
+                } else {
+                    modalMessage = (
+                        <Fragment>
+                            <h4 style={{
+                                textAlign: 'center',
+                                color: 'red'
+                            }}>Register Berhasil</h4>
+                            <Link className="btn" to="/login">Login</Link>
+                        </Fragment>
+                    )   
+                }
+            }
+            
+        
         return (
             <Fragment>
                 <section className="Register">
+                    <Modal show={ this.state.processRegister } hide={ this.updatePurchasingCancelState }>
+                        {modalMessage}
+                    </Modal>
                     <h3>Registration</h3>
                     <div className="form-group">
                         <label>Mobile Phone</label>
@@ -47,7 +112,7 @@ class Register extends Component{
                             onChange={ (phone, e) => {
                                 this.setState({ phone });
                             }} 
-                            onBlur={(e) => {console.log(e)}} 
+                            onBlur={()=>{}} 
                             validationOption={{
                                 name: 'Phone', 
                                 check: true,
@@ -73,7 +138,7 @@ class Register extends Component{
                             onChange={ (first_name, e) => {
                                 this.setState({first_name});
                             }} 
-                            onBlur={(e) => {console.log(e)}} 
+                            onBlur={()=>{}} 
                             validationOption={{
                                 name: 'First Name', 
                                 check: true,
@@ -97,7 +162,7 @@ class Register extends Component{
                             onChange={ (last_name, e) => {
                                 this.setState({ last_name });
                             }} 
-                            onBlur={(e) => {console.log(e)}} 
+                            onBlur={()=>{}} 
                             validationOption={{
                                 name: 'Last Name', 
                                 check: true,
@@ -165,7 +230,7 @@ class Register extends Component{
                             onChange={ (email, e) => {
                                 this.setState({ email });
                             }} 
-                            onBlur={(e) => {console.log(e)}} 
+                            onBlur={()=>{}} 
                             validationOption={{
                                 name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your ${name}.
                                 check: true, //Optional.[Bool].Default: true. To determin if you need to validate.,
@@ -177,7 +242,7 @@ class Register extends Component{
                                   } else {
                                     return 'is not a valid email address';
                                   }
-                                }
+                                }   
                               }}
                             validationCallback={res => {
                                 this.setState({
@@ -189,13 +254,13 @@ class Register extends Component{
                     <div className="form-group" style={{
                         textAlign:"center"
                     }}>
-                        <button disabled={!this.state.enableButton}>Register</button>
+                        <button className="btn" disabled={!this.state.enableButton} onClick={ this.postDataHandler }>Register</button>
                     </div>
                     
                     
 
                 </section>
-                
+               
             </Fragment>
         )
     }

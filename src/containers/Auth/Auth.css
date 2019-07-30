@@ -15,9 +15,3 @@
     text-decoration: none;
     color: black;
 }
-
-.Auth a:hover,
-.Auth a:active,
-.Auth a.active {
-    color: #fa923f;
-}
